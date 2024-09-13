@@ -5,16 +5,16 @@ import LoginPage from "../pages/login/login";
 import RegistroPage from "../pages/registro/registro";
 import { ModalPerfil } from "../pages/modalPerfil/modal";
 import { PageChat } from "../pages/chatpage/chat";
-
+import { Private } from "./private";
 export const RoutesPages = () => {
   return (
     <Routes>
         <Route path="/login" element={<LoginPage/>} />
         <Route  path="/registro" element={<RegistroPage/>}   />
-        <Route path="/" element={<MainPages />}>
-        <Route path="/" element={<Publicacoes />} />
-        <Route  path="/perfil" element={<ModalPerfil/>} />
-        <Route  path="/chats" element={<PageChat/>}  />
+        <Route path="/" element={<Private Component={MainPages}/>}>
+        <Route path="/" element={<Private Component={Publicacoes} />} />
+        <Route  path="/perfil" element={ <Private Component={ModalPerfil}/>} />
+        <Route  path="/chats" element={<Private Component={PageChat} />}  />
       </Route>
     </Routes>
   );
