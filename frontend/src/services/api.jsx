@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: "http://localhost:4001/"
+    baseURL: "https://myhouse1-1.onrender.com/"
 });
 api.interceptors.response.use(
     response => response,

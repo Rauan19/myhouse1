@@ -17,7 +17,7 @@ export const Suport = styled.div`
 background-color: yellow;
 width: 52px;
 
-@media (max-width: 890px) {
+@media (max-width: 700px) {
     display: none;
   }
 

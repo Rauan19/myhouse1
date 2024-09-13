@@ -95,7 +95,7 @@ export const ModalPerfil = () => {
       <Perfil>
         <IMGPERFIL>
           <img
-            src={ImgUser ? `http://localhost:4001${ImgUser}` : '/uploads/default-profile.png'}
+            src={ImgUser ? `https://myhouse1-1.onrender.com${ImgUser}` : '/uploads/default-profile.png'}
             alt="Perfil"
           />
         </IMGPERFIL>
@@ -124,7 +124,7 @@ export const ModalPerfil = () => {
             Publi.map((item) => (
               <CardPerfil key={item._id}>
                 <img
-                  src={item.images.length > 0 ? `http://localhost:4001${item.images[0]}` : 'URL_DE_IMAGEM_PADRAO'}
+                  src={item.images.length > 0 ? `https://myhouse1-1.onrender.com${item.images[0]}` : 'URL_DE_IMAGEM_PADRAO'}
                   alt="Imagem da casa"
                 />
                 <div className="details">

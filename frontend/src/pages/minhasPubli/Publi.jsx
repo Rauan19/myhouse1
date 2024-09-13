@@ -113,7 +113,7 @@ export const Publicacoes = () => {
                 house.map((house) => (
                   <Card1 key={house._id}>
                     <img
-                      src={house.images.length > 0 ? `http://localhost:4001${house.images[0]}` : 'URL_DE_IMAGEM_PADRAO'}
+                      src={house.images.length > 0 ? `https://myhouse1-1.onrender.com${house.images[0]}` : 'URL_DE_IMAGEM_PADRAO'}
                       alt="Imagem da casa"
                     />
                     <div className="details">
@@ -140,7 +140,7 @@ export const Publicacoes = () => {
                   <h2>{selectedHouse.title}</h2>
                   <div className="images">
                     {selectedHouse.images.map((image, index) => (
-                      <img key={index} src={`http://localhost:4001${image}`} alt={`Imagem ${index}`} />
+                      <img key={index} src={`https://myhouse1-1.onrender.com${image}`} alt={`Imagem ${index}`} />
                     ))}
                   </div>
                   <p>{selectedHouse.description}</p>
