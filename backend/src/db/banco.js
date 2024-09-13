@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export const connectToDatabase = async () => {
     try {
-        await mongoose.connect('mongodb+srv://house:Rau20@cluster0.mycggaf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+        await mongoose.connect(process.env.BANCOURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
