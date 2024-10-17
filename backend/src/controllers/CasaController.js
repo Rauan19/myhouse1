@@ -1,35 +1,48 @@
 import { House } from "../models/casas.models";
 import cloudinary from "../config/cloudnary";
-import fs from 'fs'
+import fs from 'fs';
+
 export const CriarHouse = async (req, res) => {
-    const { title, description, contactNumber, location, price } = req.body; // Correção do typo aqui
+    const { title, description, contactNumber, location, price } = req.body;
     const { userId } = req.params;
 
     try {
-        
-        const imagemPath = req.file.path; // Caminho da imagem temporária
+        // Verifica se pelo menos uma imagem foi enviada
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ error: "Uma imagem é obrigatória." });
+        }
 
-        // Faz o upload da imagem para o Cloudinary
-        const uploadResponse = await cloudinary.uploader.upload(imagemPath);
+        const imageUrls = [];
 
-        // Exclui a imagem local após o upload
-        fs.unlinkSync(imagemPath);
+        // Faz o upload de cada imagem e armazena a URL na array `imageUrls`
+        for (const file of req.files) {
+            const uploadResponse = await cloudinary.uploader.upload(file.path);
+            imageUrls.push(uploadResponse.secure_url);
+            
+            // Remove o arquivo local após o upload
+            fs.unlinkSync(file.path);
+        }
 
+        // Cria um novo registro da casa com as URLs das imagens no Cloudinary
         const newHouse = await House.create({
             userId,
-            price,
             title,
             description,
-            contactNumber, // E aqui também
+            contactNumber,
             location,
-            images: uploadResponse.secure_url // Caminho dos arquivos de imagem
+            price,
+            images: imageUrls // Array com as URLs das imagens
         });
 
+        // Retorna a nova casa criada como resposta
         return res.status(201).json(newHouse);
+
     } catch (error) {
+        // Em caso de erro, retorna uma mensagem de erro
         return res.status(500).json({ err: error.message });
     }
 };
+
 
 
 export const getAllHouse = async (req, res) => {
