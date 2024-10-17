@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt'
 import Users from '../models/user.models'
+import fs from 'fs';
+import cloudinary from '../config/cloudnary';
 
 
 export const RegistrarUser = async (req, res) => {
@@ -54,20 +56,35 @@ export const GetallUser =  async (req, res) => {
     }
 }
 
-export const Imgaemdeperfil = async (req, res) => {
-  const {userId} = req.params
-
-  try {
-    const user = await Users.findById(userId)
-    if(!user) {
-        return res.status(404).json("Usuario não encontrado")
+export const ImagemDePerfil = async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      // Verifica se o usuário existe
+      const user = await Users.findById(userId);
+      if (!user) {
+        return res.status(404).json("Usuário não encontrado");
+      }
+  
+      // Verifica se a imagem foi enviada
+      if (!req.file) {
+        return res.status(400).json({ error: "Uma imagem é obrigatória." });
+      }
+  
+      // Faz o upload da imagem para o Cloudinary
+      const uploadResponse = await cloudinary.uploader.upload(req.file.path);
+  
+      // Atualiza o perfil do usuário com a URL da imagem
+      user.imgPerfil = uploadResponse.secure_url;
+      await user.save();
+  
+      // Remove o arquivo local após o upload
+      fs.unlinkSync(req.file.path);
+  
+      return res.status(200).json(user);
+  
+    } catch (error) {
+      return res.status(500).json({ err: error.message });
     }
-  user.imgPerfil = `/uploads/${req.file.filename}`;
-    await user.save()
-    return  res.status(200).json(user)
-
-  } catch (error) {
-    return res.status(500).json({err: error.message})
-  }
-}
+  };
 
