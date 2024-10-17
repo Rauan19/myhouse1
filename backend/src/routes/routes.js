@@ -1,4 +1,4 @@
-import { RegistrarUser , Imgaemdeperfil, GetallUser} from "../controllers/userController";
+import { RegistrarUser ,  GetallUser} from "../controllers/userController";
 import { LoginUser } from "../controllers/authUser";
 import { CriarHouse,
  getAllHouse,
@@ -7,6 +7,7 @@ DeleteMyHouse,
  getPorPrice,
   searchHouses,
 } from "../controllers/CasaController"
+import { ImagemDePerfil } from "../controllers/userController";
 import { IniciarChat, EnviarMensagem, getMensagensDoChat, getChatDoUsuario } from "../controllers/chatController";
 
 import { SecurityRT } from "../middlewares/security";
@@ -38,7 +39,7 @@ router.get("/chat/:chatId", SecurityRT, getMensagensDoChat)
 
 router.get("/chats/:userId", SecurityRT, getChatDoUsuario )
 
-router.post('/user/:userId/upload-perfil', upload.single('imgPerfil'), Imgaemdeperfil);
+router.post('/user/:userId/upload-perfil', upload.single('imgPerfil'), ImagemDePerfil);
 
 //66b80ae7abf8cff2d98ce134
 //"email" : "rauan10@gmail.com"
