@@ -1,10 +1,20 @@
 import { House } from "../models/casas.models";
-
+import cloudinary from "../config/cloudnary";
+import fs from 'fs'
 export const CriarHouse = async (req, res) => {
     const { title, description, contactNumber, location, price } = req.body; // Correção do typo aqui
     const { userId } = req.params;
 
     try {
+        
+        const imagemPath = req.file.path; // Caminho da imagem temporária
+
+        // Faz o upload da imagem para o Cloudinary
+        const uploadResponse = await cloudinary.uploader.upload(imagemPath);
+
+        // Exclui a imagem local após o upload
+        fs.unlinkSync(imagemPath);
+
         const newHouse = await House.create({
             userId,
             price,
@@ -12,7 +22,7 @@ export const CriarHouse = async (req, res) => {
             description,
             contactNumber, // E aqui também
             location,
-            images: req.files.map(file => `/uploads/${file.filename}`) // Caminho dos arquivos de imagem
+            images: uploadResponse.secure_url // Caminho dos arquivos de imagem
         });
 
         return res.status(201).json(newHouse);
