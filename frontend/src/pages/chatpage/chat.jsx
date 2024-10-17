@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { api } from "../../services/api";
 
-const socket = io("http://localhost:4001"); // Substitua pela URL do seu servidor
+const socket = io("https://myhouse1-1.onrender.com"); // Substitua pela URL do seu servidor
 import {
   ChatContainer,
   UsersSidebar,
@@ -177,7 +177,7 @@ export const PageChat = () => {
               );
             })
           ) : (
-            <li>Nenhum chat disponível</li>
+            <li></li>
           )}
         </ul>
       </UsersSidebar>

@@ -113,7 +113,7 @@ export const Publicacoes = () => {
                 house.map((house) => (
                   <Card1 key={house._id}>
                     <img
-                      src={house.images.length > 0 ? `https://myhouse1-1.onrender.com${house.images[0]}` : 'URL_DE_IMAGEM_PADRAO'}
+                      src={house.images[0]}
                       alt="Imagem da casa"
                     />
                     <div className="details">
