@@ -108,3 +108,14 @@ export const searchHouses = async (req, res) => {
     }
 };
 
+
+export const Deletetudo = async (req, res) => {
+    try {
+        const result = await House.deleteMany({}); // Deleta todos os documentos na coleção House
+        return res.status(200).json({ message: `${result.deletedCount} casas deletadas.` });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};
+
+
