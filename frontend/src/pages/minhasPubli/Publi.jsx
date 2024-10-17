@@ -140,7 +140,7 @@ export const Publicacoes = () => {
                   <h2>{selectedHouse.title}</h2>
                   <div className="images">
                     {selectedHouse.images.map((image, index) => (
-                      <img key={index} src={`https://myhouse1-1.onrender.com${image}`} alt={`Imagem ${index}`} />
+                      <img key={index} src={selectedHouse.image} alt={`Imagem ${index}`} />
                     ))}
                   </div>
                   <p>{selectedHouse.description}</p>
